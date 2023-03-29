@@ -1,57 +1,41 @@
 package org.dicoding.githubuser.viewModels
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.app.Application
+import androidx.lifecycle.*
 import kotlinx.coroutines.launch
-import org.dicoding.githubuser.models.DetailUserResponse
-import org.dicoding.githubuser.models.ItemsItem
-import org.dicoding.githubuser.utils.ApiConfig
+import org.dicoding.githubuser.preferences.SettingPreferences
+import org.dicoding.githubuser.repository.MainRepository
 
-class MainViewModel:ViewModel() {
+class MainViewModel(application: Application,private val pref: SettingPreferences): AndroidViewModel(application)  {
+    private val mainRepository = MainRepository(application)
 
-    private val apiService = ApiConfig.getApiService()
+    val listItem = mainRepository.listItem
+    val detailUser = mainRepository.detailUser
+    val isLoading = mainRepository.isLoading
 
-    private val _listItem = MutableLiveData<List<ItemsItem>>()
-    val listItem = _listItem
-
-    private val _detailUser = MutableLiveData<DetailUserResponse>()
-    val detailUser = _detailUser
-
-    private val _isLoading = MutableLiveData(false)
-    val isLoading: LiveData<Boolean> = _isLoading
+    fun getThemeSettings(): LiveData<Boolean> {
+        return pref.getThemeSetting().asLiveData()
+    }
 
     fun getSearchItem(q:String) {
         viewModelScope.launch {
-            _isLoading.value = true
-            try{
-                val response = apiService.getSearchUsers(q)
-                _listItem.value = response.items
-            }catch (e:Exception){
-                Log.d("DETAIL","getSearchItem is error")
-            }finally {
-                _isLoading.value = false
-            }
+            mainRepository.getSearchItem(q)
         }
     }
 
     fun getDetailUser(username: String) {
         viewModelScope.launch {
-            _isLoading.value = true
-            try{
-                val response = apiService.getDetailUser(username)
-                if (response.isSuccessful) {
-                    _detailUser.value = response.body()
-                }
-            }catch (e:Exception){
-                Log.d("DETAIL","getDetailUser is error")
-            }finally {
-                _isLoading.value = false
-            }
-
+            mainRepository.getDetailUser(username)
         }
     }
 
+    fun addFavorite(username:String, avatarUrl: String, id:Int){
+        mainRepository.addFavorite(id,username,avatarUrl)
+    }
+
+    suspend fun checkUser(id: Int) = mainRepository.checkUser(id)
+
+    fun removeFavorite(id:Int){
+        mainRepository.removeFavorite(id)
+    }
 }

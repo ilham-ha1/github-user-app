@@ -9,6 +9,10 @@
         app:showAsAction="collapseActionView|always" />
 
     <group android:menuCategory="container">
+        <item android:id="@+id/menu2"
+            android:title="@string/menu_2"
+            android:icon = "@drawable/ic_baseline_favorite_wh_24"
+            app:showAsAction="always" />
         <item android:id="@+id/menu1"
             android:title="@string/menu_1"
             android:icon = "@drawable/ic_baseline_settings_24"

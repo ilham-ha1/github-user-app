@@ -28,6 +28,8 @@ class UserAdapter(private val listUser:List<ItemsItem>):RecyclerView.Adapter<Use
             viewHolder.itemView.setOnClickListener{
                 val intentDetail = Intent(viewHolder.itemView.context, DetailActivity::class.java)
                 intentDetail.putExtra(DetailActivity.EXTRA_DETAIL_USER, listUser[viewHolder.adapterPosition].login)
+                intentDetail.putExtra(DetailActivity.EXTRA_ID, listUser[viewHolder.adapterPosition].id)
+                intentDetail.putExtra(DetailActivity.EXTRA_IMG, listUser[viewHolder.adapterPosition].avatarUrl)
                 viewHolder.itemView.context.startActivity(intentDetail)
             }
         }

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Github User</string>
     <string name="menu_1">Pengaturan</string>
+    <string name="menu_2">Favorite</string>
     <string name="search_view">Username</string>
     <string name="search_hint">Cari username</string>
     <string name="title_activity_detail">DetailActivity</string>
@@ -11,6 +12,8 @@
 
     <string name="content_tab_follower">Welcome Home</string>
     <string name="content_tab_following">Change your Profile here</string>
+
+    <string name="dark_mode">Dark Mode</string>
 
 
 </resources>

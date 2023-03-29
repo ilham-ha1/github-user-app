@@ -1,5 +1,6 @@
 package org.dicoding.githubuser.ui
 
+import android.app.Application
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,12 +10,13 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.dicoding.githubuser.adapter.FollowingAdapter
 import org.dicoding.githubuser.databinding.FragmentFollowringBinding
+import org.dicoding.githubuser.factory.DetailViewModelFactory
 import org.dicoding.githubuser.viewModels.DetailViewModel
 
 class FollowingFragment : Fragment() {
     private var _binding: FragmentFollowringBinding? = null
     private val binding get() = _binding!!
-    private val detailViewModel by viewModels<DetailViewModel>()
+    private val detailViewModel by viewModels<DetailViewModel>{ DetailViewModelFactory(requireContext().applicationContext as Application) }
     private var username: String? = null
 
     override fun onCreateView(

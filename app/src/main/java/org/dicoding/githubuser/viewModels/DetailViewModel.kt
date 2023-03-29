@@ -1,54 +1,41 @@
 package org.dicoding.githubuser.viewModels
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.app.Application
+import androidx.lifecycle.*
 import kotlinx.coroutines.launch
-import org.dicoding.githubuser.models.ItemsItem
-import org.dicoding.githubuser.utils.ApiConfig
+import org.dicoding.githubuser.repository.DetailRepository
+import org.dicoding.githubuser.database.room.FavoriteUserDao
+import org.dicoding.githubuser.database.room.FavoriteUserRoomDatabase
 
-class DetailViewModel:ViewModel() {
+class DetailViewModel(application: Application): AndroidViewModel(application) {
+    private val detailRepository = DetailRepository(application)
 
-    private val apiService = ApiConfig.getApiService()
+    private var userDao: FavoriteUserDao?
+    private var userDb: FavoriteUserRoomDatabase
 
-    private val _listFollower = MutableLiveData<List<ItemsItem>>()
-    val listFollower = _listFollower
+    init{
+        userDb = FavoriteUserRoomDatabase.getDatabase(application)
+        userDao = userDb.favoriteUserDao()
+    }
 
-    private val _listFollowing = MutableLiveData<List<ItemsItem>>()
-    val listFollowing = _listFollowing
-
-    private val _isLoading = MutableLiveData(false)
-    val isLoading: LiveData<Boolean> = _isLoading
+    val listFollower = detailRepository.listFollower
+    val listFollowing = detailRepository.listFollowing
+    val isLoading= detailRepository.isLoading
 
     fun getFollower(username:String){
         viewModelScope.launch {
-            _isLoading.value = true
-            try{
-                val response = apiService.getFollowers(username)
-                _listFollower.postValue(response)
-            }catch (e:Exception){
-                Log.d("DETAIL","getFollower is error")
-            }finally {
-                _isLoading.value = false
-            }
+            detailRepository.getFollower(username)
         }
     }
-
 
     fun getFollowing(username:String){
         viewModelScope.launch {
-            _isLoading.value = true
-            try{
-                val response = apiService.getFollowing(username)
-                _listFollowing.postValue(response)
-            }catch (e:Exception){
-                Log.d("DETAIL","getFollowing is error")
-            }finally {
-                _isLoading.value = false
-            }
+           detailRepository.getFollowing(username)
         }
     }
+
+
+
+
 
 }

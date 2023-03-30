@@ -1,7 +1,10 @@
 package org.dicoding.githubuser.viewModels
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.dicoding.githubuser.preferences.SettingPreferences
 import org.dicoding.githubuser.repository.MainRepository
@@ -12,6 +15,7 @@ class MainViewModel(application: Application,private val pref: SettingPreference
     val listItem = mainRepository.listItem
     val detailUser = mainRepository.detailUser
     val isLoading = mainRepository.isLoading
+    val isNotFound = mainRepository.isDataNotFound
 
     fun getThemeSettings(): LiveData<Boolean> {
         return pref.getThemeSetting().asLiveData()

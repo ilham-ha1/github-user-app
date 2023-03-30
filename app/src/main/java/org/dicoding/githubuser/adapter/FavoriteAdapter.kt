@@ -5,11 +5,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import org.dicoding.githubuser.database.entity.FavoriteUser
 import org.dicoding.githubuser.databinding.ItemRowUserBinding
 import org.dicoding.githubuser.models.ItemsItem
 import org.dicoding.githubuser.ui.DetailActivity
 
-class UserAdapter(private val listUser:List<ItemsItem>):RecyclerView.Adapter<UserAdapter.ListViewHolder>() {
+class FavoriteAdapter(private val listUser:List<FavoriteUser>): RecyclerView.Adapter<FavoriteAdapter.ListViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int):ListViewHolder {
         val binding =
@@ -17,29 +18,19 @@ class UserAdapter(private val listUser:List<ItemsItem>):RecyclerView.Adapter<Use
         return ListViewHolder(binding)
     }
 
-    class ListViewHolder(var binding:ItemRowUserBinding) : RecyclerView.ViewHolder(binding.root) {}
+    class ListViewHolder(var binding: ItemRowUserBinding) : RecyclerView.ViewHolder(binding.root) {}
 
     override fun onBindViewHolder(viewHolder: ListViewHolder, position: Int) {
         listUser[position].let { item ->
-            viewHolder.binding.tvItemName.text = item.login
+            viewHolder.binding.tvItemName.text = item.username
             Glide.with(viewHolder.binding.root.context)
                 .load(item.avatarUrl)
                 .into(viewHolder.binding.imgItemPhoto)
-            viewHolder.itemView.setOnClickListener {
-                val intentDetail =
-                    Intent(viewHolder.itemView.context, DetailActivity::class.java)
-                intentDetail.putExtra(
-                    DetailActivity.EXTRA_DETAIL_USER,
-                    listUser[viewHolder.adapterPosition].login
-                )
-                intentDetail.putExtra(
-                    DetailActivity.EXTRA_ID,
-                    listUser[viewHolder.adapterPosition].id
-                )
-                intentDetail.putExtra(
-                    DetailActivity.EXTRA_IMG,
-                    listUser[viewHolder.adapterPosition].avatarUrl
-                )
+            viewHolder.itemView.setOnClickListener{
+                val intentDetail = Intent(viewHolder.itemView.context, DetailActivity::class.java)
+                intentDetail.putExtra(DetailActivity.EXTRA_DETAIL_USER, listUser[viewHolder.adapterPosition].username)
+                intentDetail.putExtra(DetailActivity.EXTRA_ID, listUser[viewHolder.adapterPosition].id)
+                intentDetail.putExtra(DetailActivity.EXTRA_IMG, listUser[viewHolder.adapterPosition].avatarUrl)
                 viewHolder.itemView.context.startActivity(intentDetail)
             }
         }

@@ -1,11 +1,10 @@
 package org.dicoding.githubuser.ui
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import org.dicoding.githubuser.databinding.ActivityMainBinding
+import androidx.appcompat.app.AppCompatActivity
 import org.dicoding.githubuser.databinding.ActivitySplashScreenBinding
 
 class SplashScreenActivity : AppCompatActivity() {

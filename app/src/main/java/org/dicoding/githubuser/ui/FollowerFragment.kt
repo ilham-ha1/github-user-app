@@ -2,10 +2,10 @@ package org.dicoding.githubuser.ui
 
 import android.app.Application
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.dicoding.githubuser.adapter.FollowerAdapter
@@ -48,9 +48,8 @@ class FollowerFragment : Fragment() {
             binding.rvUserFollower.adapter = adapter
         }
 
-        if (username != null) {
-            detailViewModel.getFollower(username)
-        }
+        username?.let { detailViewModel.getFollower(it) }
+
         detailViewModel.isLoading.observe(viewLifecycleOwner) {
             showLoading(it)
         }

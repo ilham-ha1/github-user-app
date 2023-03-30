@@ -27,6 +27,7 @@ import org.dicoding.githubuser.factory.MainViewModelFactory
 import org.dicoding.githubuser.preferences.SettingPreferences
 import org.dicoding.githubuser.viewModels.MainViewModel
 
+
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 class DetailActivity : AppCompatActivity() {
@@ -38,20 +39,7 @@ class DetailActivity : AppCompatActivity() {
         )
     }
 
-    companion object {
-        @StringRes
-        private val TAB_TITLES = intArrayOf(
-            R.string.tab_text_1,
-            R.string.tab_text_2
-        )
-        private val TAB_ICON = intArrayOf(
-            R.drawable.ic_baseline_people_24,
-            R.drawable.ic_baseline_people_24
-        )
-        const val EXTRA_DETAIL_USER = "extra_detail_user"
-        const val EXTRA_ID = "extra_id"
-        const val EXTRA_IMG = "extra_img"
-    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,17 +81,15 @@ class DetailActivity : AppCompatActivity() {
         }
 
         mainViewModel.detailUser.observe(this) {
-            binding.profileImage.let {
-                Glide.with(binding.root.context)
-                    .load(mainViewModel.detailUser.value?.avatarUrl)
-                    .into(binding.profileImage)
-            }
-            binding.tvName.text = mainViewModel.detailUser.value?.name.toString()
-            binding.tvUsername.text = mainViewModel.detailUser.value?.login.toString()
+            Glide.with(binding.root.context)
+                .load(it.avatarUrl)
+                .into(binding.profileImage)
+            binding.tvName.text = it.name
+            binding.tvUsername.text = it.login
             binding.tvFollowers.text =
-                "${mainViewModel.detailUser.value?.followers.toString()} Followers"
+                resources.getString(R.string.follower_string, it.followers)
             binding.tvFollowing.text =
-                "${mainViewModel.detailUser.value?.following.toString()} Following"
+                resources.getString(R.string.following_string, it.following)
         }
 
 
@@ -155,5 +141,18 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-
+    companion object {
+        @StringRes
+        private val TAB_TITLES = intArrayOf(
+            R.string.tab_text_1,
+            R.string.tab_text_2
+        )
+        private val TAB_ICON = intArrayOf(
+            R.drawable.ic_baseline_people_24,
+            R.drawable.ic_baseline_people_24
+        )
+        const val EXTRA_DETAIL_USER = "extra_detail_user"
+        const val EXTRA_ID = "extra_id"
+        const val EXTRA_IMG = "extra_img"
+    }
 }

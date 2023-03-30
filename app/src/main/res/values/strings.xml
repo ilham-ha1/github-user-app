@@ -14,6 +14,9 @@
     <string name="content_tab_following">Change your Profile here</string>
 
     <string name="dark_mode">Dark Mode</string>
+    <string name="empty_search">Tidak Ditemukan</string>
 
+    <string name="follower_string">"%d Followers"</string>
+    <string name="following_string">"%d Following"</string>
 
 </resources>

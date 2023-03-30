@@ -3,19 +3,19 @@ package org.dicoding.githubuser.ui
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.recyclerview.widget.LinearLayoutManager
-import org.dicoding.githubuser.R
 import androidx.appcompat.widget.SearchView
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
+import androidx.recyclerview.widget.LinearLayoutManager
+import org.dicoding.githubuser.R
 import org.dicoding.githubuser.adapter.UserAdapter
 import org.dicoding.githubuser.databinding.ActivityMainBinding
 import org.dicoding.githubuser.factory.MainViewModelFactory
@@ -50,6 +50,10 @@ class MainActivity : AppCompatActivity() {
             binding.rvUser.adapter = adapter
         }
 
+        mainViewModel.isNotFound.observe(this){
+           showNotFound(it)
+        }
+
         mainViewModel.isLoading.observe(this) {
             showLoading(it)
         }
@@ -57,6 +61,8 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.getSearchItem("ilham")
 
     }
+
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.seacrh_user_menu,menu)
@@ -100,4 +106,7 @@ class MainActivity : AppCompatActivity() {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
+    private fun showNotFound(isNotFound: Boolean) {
+       binding.textView.visibility = if (isNotFound) View.VISIBLE else View.GONE
+    }
 }

@@ -11,10 +11,10 @@
         <entry key="..\:/android-project/GithubUser/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.1" />
         <entry key="..\:/android-project/GithubUser/app/src/main/res/drawable/ic_favorite.xml" value="0.1" />
         <entry key="..\:/android-project/GithubUser/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
-        <entry key="..\:/android-project/GithubUser/app/src/main/res/layout-land/activity_detail.xml" value="0.72" />
-        <entry key="..\:/android-project/GithubUser/app/src/main/res/layout/activity_detail.xml" value="0.1" />
+        <entry key="..\:/android-project/GithubUser/app/src/main/res/layout-land/activity_detail.xml" value="0.24947145877378435" />
+        <entry key="..\:/android-project/GithubUser/app/src/main/res/layout/activity_detail.xml" value="0.4" />
         <entry key="..\:/android-project/GithubUser/app/src/main/res/layout/activity_favorite.xml" value="0.1" />
-        <entry key="..\:/android-project/GithubUser/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/android-project/GithubUser/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/android-project/GithubUser/app/src/main/res/layout/activity_setting.xml" value="0.4" />
         <entry key="..\:/android-project/GithubUser/app/src/main/res/layout/activity_splash_screen.xml" value="0.1" />
         <entry key="..\:/android-project/GithubUser/app/src/main/res/layout/fragment_detail.xml" value="0.1" />

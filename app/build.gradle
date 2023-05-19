@@ -4,6 +4,8 @@ plugins {
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
 }
+def properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
 android {
     compileSdk 33
@@ -16,7 +18,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "API_KEY", '"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"')
+        buildConfigField("String", "API_KEY", properties.getProperty("apiKey"))
+
     }
 
     buildTypes {
